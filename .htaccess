@@ -1,0 +1,5 @@
+RewriteBase /www/brandste3u/projet/
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
+RewriteEngine On

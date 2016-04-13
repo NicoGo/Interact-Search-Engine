@@ -1,0 +1,79 @@
+body{padding: 0;margin: 0;font-family: 'Raleway', sans-serif;background-color: white;}
+
+img{border: none;outline: 0;}
+
+/** MOBILE **/
+
+@media screen and (max-width: 640px) {
+
+		
+}
+
+/** HEADER **/
+
+.slider
+{
+	position: relative;
+	width: 100%;
+	display: table;
+	background-size: cover;
+}
+
+.slider-menu
+{
+	width: 100%;
+	display: table-row;
+	height: 100px;
+}
+
+.slider-menu ul
+{
+	float: right;
+	list-style: none;
+}
+
+.slider-menu ul li
+{
+	margin-right: 30px;
+	padding: 7px 0px;
+	line-height: 50px;
+	display: inline-block;
+	border-bottom: 1px solid transparent;
+}
+
+.slider-menu ul li:hover
+{
+	border-bottom: 1px solid white;
+}
+
+.slider-menu ul li a
+{
+	font-size: 12px;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: white;
+}
+
+.slider-text
+{
+	padding: 40px;
+	padding-right: 40%;
+	color: white;
+	margin-left: 10%;
+	font-size: 11px;
+}
+
+.slider-button
+{
+	text-decoration: none;
+	color: white;
+	padding: 10px 30px;
+	text-transform: uppercase;
+	border: 1px solid white;
+}
+
+.slider-button:hover
+{
+	padding: 10px 40px;
+	transition: padding 0.5s ease;
+}
