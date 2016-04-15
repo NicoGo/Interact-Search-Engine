@@ -7,6 +7,8 @@ session_start();
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+use etuapp\models\User;
+
 // AUTOLOAD ET DB
 
 require("vendor/autoload.php");
@@ -19,12 +21,19 @@ $db->bootEloquent();
 
 $app = new \Slim\Slim();
 
-$app->get('', function () {
- 	
-	$c = new etuapp\control\AcceuilController();
-	$c->pageAcceuil();
+// --------------------- SCRIPT COOKIE -------------------------- 
 
-});
+if(isset($_COOKIE["login"]) && isset($_COOKIE["pass"]))
+{
+	$count = User::Where("login","=",$_COOKIE["login"])->Where("pass","=",$_COOKIE["pass"])->count();
+
+	if($count==1)
+	{
+		$_SESSION["user"] = User::Where("login","=",$_COOKIE["login"])->Where("pass","=",$_COOKIE["pass"])->first()->id;
+	}
+}
+
+// --------------------- SECTION ACCEUIL -------------------------- 
 
 $app->get('/', function () {
  	
@@ -33,10 +42,19 @@ $app->get('/', function () {
 
 });
 
+// --------------------- SECTION USER -------------------------- 
+
 $app->get('/login', function () {
  	
-	$c = new etuapp\control\AcceuilController();
-	$c->pageAcceuil();
+	$c = new etuapp\control\UserController();
+	$c->pageLogin();
+
+});
+
+$app->post('/login', function () {
+ 	
+	$c = new etuapp\control\UserController();
+	$c->logUser();
 
 });
 
@@ -47,8 +65,10 @@ $app->get('/register', function () {
 
 $app->post('/register', function () {
 	$c = new etuapp\control\UserController();
-	$c->logUser();
+	$c->registerUser();
 });
+
+// --------------------- SECTION RECHERCHE -------------------------- 
 
 $app->get('/search/:keyword', function ($keyword) {
 	$c = new etuapp\control\AcceuilController();
@@ -58,13 +78,6 @@ $app->get('/search/:keyword', function ($keyword) {
 $app->get('/search', function () {
 	$c = new etuapp\control\AcceuilController();
 	$c->search("");
-});
-
-$app->post('/admin/membre', function () {
- 	
-	$c = new etuapp\control\AdminController();
-	$c->creerMembre($_POST);
-
 });
 
 $app->run();

@@ -62,13 +62,35 @@ class VueUser
 		}
 	}
 
+	private function afficherLogin()
+	{
+
+		$this->afficherHeader();
+
+		echo "<div class=\"register_container\">
+
+		<form method=\"post\" action=\"\">
+
+			<label for=\"login\">Login :</label>
+
+			<input type=\"text\" id=\"login\" name=\"login\">
+
+			<label for=\"password\">Mot de passe :</label>
+
+			<input type=\"password\"  id=\"password\" name=\"pass\">
+
+			<input type=\"submit\">
+
+		</form>";
+	}
+
 	private function afficherRegister()
 	{
 		$this->afficherHeader();
 
-		echo "<div id=\"register_container\">
+		echo "<div class=\"register_container\">
 
-		<form method=\"post\" action=\"register/\">
+		<form method=\"post\" action=\"\">
 
 			<label for=\"login\">Login :</label>
 

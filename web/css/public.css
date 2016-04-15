@@ -117,6 +117,7 @@ img{border: none;outline: 0;}
 	border: 1px solid #F1F1F1;
 	margin-top: 20px;
 	padding: 20px;
+	position: relative;
 }
 
 .result-container h3
@@ -132,7 +133,17 @@ img{border: none;outline: 0;}
 	text-decoration: none;
 }
 
-.urlive-container
+.result-favorite
 {
-	border: 1px solid black;
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	top: 10px;
+	right: 5px;
 }
+
+.result-favorite a
+{
+	color: #F39c12;
+}
+

@@ -36,10 +36,12 @@ class VueAcceuil
 
 		echo "<title>Interact Project Manager</title> 
 
+			<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css\">
+
+
 				<link rel=\"stylesheet\" type=\"text/css\" href=\"$css\" media=\"screen\" />
 				<link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
-				<link rel=\"stylesheet\" href=\"$fontawesome\">
-
+				
 				<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />
 
 				<script type=\"text/javascript\" src=\"$urljquery\"></script>
@@ -60,7 +62,6 @@ class VueAcceuil
 
 	private function afficherAcceuil()
 	{
-
 		// URLs
 
 		$url_login =  $_SERVER["SCRIPT_NAME"]."/login";
@@ -76,16 +77,24 @@ class VueAcceuil
 
 		<div class=\"slider\" style=\"height: 350px; background-image: url('$this->image_dir/wall_1.jpg');\">
 
-				<div class=\"slider-menu\">
+				<div class=\"slider-menu\">";
 					
-					<ul>
+						if(isset($_COOKIE["login"]))
+						{
+							echo "<ul><li>Bonjour, ".$_COOKIE["login"]."</li></ul>";
+						}
+						else
+						{
+							echo "<ul>
 						
-						<li><a href=\"$url_login\">Se connecter</a></li>
-						<li><a href=\"$url_register\">S'inscrire</a></li>
+									<li><a href=\"$url_login\">Se connecter</a></li>
+									<li><a href=\"$url_register\">S'inscrire</a></li>
 
-					</ul>
+							</ul>";
+						}
 
-				</div>
+						
+				echo "</div>
 			
 				<div class=\"slider-text\">
 				
@@ -132,6 +141,13 @@ class VueAcceuil
 				  echo "URL DEV : <a href=\"http://$site->url_prod\">http://$site->url_prod</a></br>";
 
 				  echo "VIEWS : $site->views";
+
+				  if(isset($_COOKIE["login"]))
+				  {
+
+				  		echo "<div class=\"result-favorite\"><a href=\"\" class=\"result-favorite-link\"><i class=\"fa fa-star-o\"></i></a></div></div>";
+
+				  }
 
 			  	  echo "</div>";
 			}
