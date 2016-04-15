@@ -6,7 +6,7 @@ use etuapp\models\CMS;
 use etuapp\models\Membre;
 use etuapp\vue\VueAdmin;
 
-class AdminController extends AbstractController
+class AdminController
 {
 
 	public function pageAcceuil()

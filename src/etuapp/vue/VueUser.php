@@ -3,12 +3,13 @@
 namespace etuapp\vue;
 
 use etuapp\models\Sites;
+use etuapp\models\User;
 
-class VueAcceuil
+class VueUser
 {
 
-
-	const AFFICHERACCEUIL = 1;
+	const AFFICHER_LOGIN = 1;
+	const AFFICHER_REGISTER = 2;
 
 	private $image_dir;
 
@@ -52,15 +53,39 @@ class VueAcceuil
 	function render($type)
 	{
 		switch ($type) {
-			case self::AFFICHERACCEUIL:
-				$this->afficherAcceuil();
+			case self::AFFICHER_LOGIN:
+				$this->afficherLogin();
+				break;
+			case self::AFFICHER_REGISTER:
+				$this->afficherRegister();
 				break;
 		}
 	}
 
-	private function afficherAcceuil()
+	private function afficherRegister()
 	{
+		$this->afficherHeader();
 
+		echo "<div id=\"register_container\">
+
+		<form method=\"post\" action=\"register/\">
+
+			<label for=\"login\">Login :</label>
+
+			<input type=\"text\" id=\"login\" name=\"login\">
+
+			<label for=\"password\">Mot de passe :</label>
+
+			<input type=\"password\"  id=\"password\" name=\"pass\">
+
+			<input type=\"submit\">
+
+		</form>";
+
+	}	
+
+	private function afficherHeader()
+	{
 		// URLs
 
 		$url_login =  $_SERVER["SCRIPT_NAME"]."/login";
@@ -101,57 +126,7 @@ class VueAcceuil
 
 		</div>";
 
-		// AFFICHAGE COLONNE GAUCHE (PROJET ENABLE)
-
-		echo "
-		
-		<div class=\"bloc-search\">
-
-			<div class=\"form-group\">
-
-				<input type=\"text\" class=\"in-text search\">
-
-				<div class=\"search-results\">
-
-				</div>
-
-			</div>
-
-		</div>";
-
-		// RESULT BLOC
-
-		echo "<div class=\"all-results\">";
-
-			foreach ($sites as $key => $site) {
-
-				  echo "<div class=\"result-container\">";
-
-				  echo "<h3>".$site->name." - <a href=\"http://$site->url_dev\">http://$site->url_dev</a> </h3></br>";
-
-				  echo "URL DEV : <a href=\"http://$site->url_prod\">http://$site->url_prod</a></br>";
-
-				  echo "VIEWS : $site->views";
-
-			  	  echo "</div>";
-			}
-
-		echo "</div>";
-		
 	}
-
-	public function alert($type,$message)
-	{
-		switch ($type) {
-			case 1;
-				echo "<div class=\"alertSuccess\">$message</div>";
-				break;
-			case 2;
-				echo "<div class=\"alertFail\">$message</div>";
-				break;
-		}
-	}
-
 
 	
 }

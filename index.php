@@ -33,65 +33,31 @@ $app->get('/', function () {
 
 });
 
-$app->get('/videos/', function () {
+$app->get('/login', function () {
  	
 	$c = new etuapp\control\AcceuilController();
-	$c->pageVideos();
-
-});
-
-$app->get('/calendrier/', function () {
-	$c = new etuapp\control\AcceuilController();
-	$c->pageCalendrier();
-});
-
-$app->get('/contact/', function () {
- 	
-	$c = new etuapp\control\AcceuilController();
-	$c->pageContact();
-
-});
-
-$app->post('/contact/send', function () {
- 	
-	$c = new etuapp\control\AcceuilController();
-	$c->envoyerMessage($_POST);
-
-});
-
-$app->post('/admin/cms', function () {
- 	
-	$c = new etuapp\control\AdminController();
-	$c->creerCMS($_POST);
-
-});
-
-$app->get('/admin', function () {
- 	
-	$c = new etuapp\control\AdminController();
 	$c->pageAcceuil();
 
 });
 
-$app->get('/admin/contact', function () {
- 	
-	$c = new etuapp\control\AdminController();
-	$c->pageContact();
-
+$app->get('/register', function () {
+	$c = new etuapp\control\UserController();
+	$c->pageRegister();
 });
 
-$app->get('/admin/delete/:id', function ($id) {
- 	
-	$c = new etuapp\control\AdminController();
-	$c->supprimerMembre($id);
-
+$app->post('/register', function () {
+	$c = new etuapp\control\UserController();
+	$c->logUser();
 });
 
-$app->post('/admin/cms', function () {
- 	
-	$c = new etuapp\control\AdminController();
-	$c->creerCMS($_POST);
+$app->get('/search/:keyword', function ($keyword) {
+	$c = new etuapp\control\AcceuilController();
+	$c->search($keyword);
+});
 
+$app->get('/search', function () {
+	$c = new etuapp\control\AcceuilController();
+	$c->search("");
 });
 
 $app->post('/admin/membre', function () {
