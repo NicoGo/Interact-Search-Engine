@@ -3,6 +3,7 @@
 namespace etuapp\vue;
 
 use etuapp\models\Sites;
+use etuapp\models\MapUserSites;
 
 class VueAcceuil
 {
@@ -71,6 +72,11 @@ class VueAcceuil
 
 		$sites = Sites::all();
 
+		if(isset($_SESSION["user"]))
+		{
+			$favoris = MapUserSites::Where("id_user","=",$_SESSION["user"])->Where("favorite","=","1")->get();
+		}
+		
 		// AFFICHAGE IMAGE HEADER / MENU 
 
 		echo "
@@ -132,6 +138,33 @@ class VueAcceuil
 
 		echo "<div class=\"all-results\">";
 
+			echo "<h3> ---------- FAVORIS --------</h3>";
+
+			if(isset($_SESSION["user"]))
+			{
+				foreach ($favoris as $key => $favori) {
+
+				  // RECUPERATION DU SITE
+
+				  $site = Sites::Where("id","=",$favori->id)->first();
+
+				  echo "<div class=\"result-container\">";
+
+				  echo "<h3>".$site->name." - <a href=\"http://$site->url_dev\">http://$site->url_dev</a> </h3></br>";
+
+				  echo "URL DEV : <a href=\"http://$site->url_prod\">http://$site->url_prod</a></br>";
+
+				  echo "VIEWS : $site->views";
+
+				  echo "<div class=\"result-favorite\"><a href=\"index.php/favorite/$site->id\" class=\"result-favorite-link\"><i class=\"fa fa-star\"></i></a></div></div>";
+
+			  	  echo "</div>";
+
+				}
+			}
+
+			echo "<h3> ---------- SITES --------</h3>";
+
 			foreach ($sites as $key => $site) {
 
 				  echo "<div class=\"result-container\">";
@@ -142,10 +175,15 @@ class VueAcceuil
 
 				  echo "VIEWS : $site->views";
 
-				  if(isset($_COOKIE["login"]))
-				  {
+				  if(isset($_SESSION["user"]))
+				  {	
+				  		// SI FAVORI
 
-				  		echo "<div class=\"result-favorite\"><a href=\"\" class=\"result-favorite-link\"><i class=\"fa fa-star-o\"></i></a></div></div>";
+				  		$is_fav = MapUserSites::Where("id_user","=",$_SESSION["user"])->Where("id_site","=",$site->id)->Where("favorite","=","1")->count();
+
+
+
+				  		echo "<div class=\"result-favorite\"><a href=\"index.php/favorite/$site->id\" class=\"result-favorite-link\">";if($is_fav==1){echo "<i class=\"fa fa-star\"></i>";}else{echo "<i class=\"fa fa-star-o\"></i>";}echo"</a></div></div>";
 
 				  }
 

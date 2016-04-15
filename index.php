@@ -45,10 +45,8 @@ $app->get('/', function () {
 // --------------------- SECTION USER -------------------------- 
 
 $app->get('/login', function () {
- 	
 	$c = new etuapp\control\UserController();
 	$c->pageLogin();
-
 });
 
 $app->post('/login', function () {
@@ -67,6 +65,14 @@ $app->post('/register', function () {
 	$c = new etuapp\control\UserController();
 	$c->registerUser();
 });
+
+// --------------------- SECTION FAVORITE -------------------------- 
+
+$app->get('/favorite/:id', function ($id) {
+	$c = new etuapp\control\SitesController();
+	$c->toFavorite($id);
+});
+
 
 // --------------------- SECTION RECHERCHE -------------------------- 
 
