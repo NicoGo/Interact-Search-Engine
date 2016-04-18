@@ -50,10 +50,8 @@ $app->get('/login', function () {
 });
 
 $app->post('/login', function () {
- 	
 	$c = new etuapp\control\UserController();
 	$c->logUser();
-
 });
 
 $app->get('/register', function () {
@@ -73,6 +71,24 @@ $app->get('/favorite/:id', function ($id) {
 	$c->toFavorite($id);
 });
 
+// --------------------- SECTION AJOUT SITE -------------------------- 
+
+$app->get('/addsite', function () {
+	$c = new etuapp\control\SitesController();
+	$c->pageAddSite();
+});
+
+$app->post('/addsite', function () {
+	$c = new etuapp\control\SitesController();
+	$c->addSite();
+});
+
+// --------------------- SECTION INCREMENTATION VIEW -------------------------- 
+
+$app->get('/inc/:id', function ($id) {
+	$c = new etuapp\control\SitesController();
+	$c->toInc($id);
+});
 
 // --------------------- SECTION RECHERCHE -------------------------- 
 

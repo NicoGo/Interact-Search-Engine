@@ -3,6 +3,7 @@
 namespace etuapp\control;
 
 use etuapp\models\User;
+use etuapp\models\Sites;
 use etuapp\models\MapUserSites;
 use etuapp\vue\VueUser;
 
@@ -18,12 +19,17 @@ class SitesController
 			$count = MapUserSites::Where("id_site","=",$id)->Where("id_user","=",$_SESSION["user"])->count();
 			if($count==1)
 			{
+
 				$mus = MapUserSites::Where("id_site","=",$id)->Where("id_user","=",$_SESSION["user"])->first();
 				// UPDATE 
 				if($mus->favorite==1)
+				{
 					$mus->favorite = 0;
+				}
 				else
+				{
 					$mus->favorite = 1;
+				}
 				// SAVE
 				$mus->save();
 			}
@@ -36,6 +42,63 @@ class SitesController
 				$mus->favorite = 1;
 				//SAVE 
 				$mus->save();
+			}
+		}
+	}
+
+	public function toInc($id)
+	{
+		if(isset($_SESSION["user"]))
+		{
+			// SI LA LIAISON EXISTE DEJA
+
+			$count = MapUserSites::Where("id_site","=",$id)->Where("id_user","=",$_SESSION["user"])->count();
+			if($count==1)
+			{
+				$mus = MapUserSites::Where("id_site","=",$id)->Where("id_user","=",$_SESSION["user"])->first();
+				$site = Sites::find($id);
+				$site->increment("views_all");
+				// UPDATE 
+				$mus->increment('views');
+
+				// SAVE
+				$mus->save();
+			}
+			else
+			{
+				$mus = new MapUserSites();
+				// SET DES DONNEES
+				$mus->id_user = $_SESSION["user"];
+				$mus->id_site = $id;
+				$mus->views = 1;
+				//SAVE 
+				$mus->save();
+			}
+		}
+	}
+
+	public function pageAddSite()
+	{
+		$vue = new VueUser();
+		$vue->render(3);
+	}
+
+	public function addSite()
+	{
+		if(isset($_SESSION["user"]))
+		{
+			if(isset($_POST))
+			{
+				$site = new Sites($_POST);
+				$site->save();
+
+				$users = User::all();
+				foreach ($users as $key => $user) {
+					$mus = new MapUserSites();
+					$mus->id_user = $user->id;
+					$mus->id_site = $site->id;
+					$mus->save();
+				}
 			}
 		}
 	}

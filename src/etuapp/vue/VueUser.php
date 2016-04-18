@@ -10,6 +10,7 @@ class VueUser
 
 	const AFFICHER_LOGIN = 1;
 	const AFFICHER_REGISTER = 2;
+	const AFFICHER_ADD_SITE = 3;
 
 	private $image_dir;
 
@@ -59,6 +60,10 @@ class VueUser
 			case self::AFFICHER_REGISTER:
 				$this->afficherRegister();
 				break;
+			case self::AFFICHER_ADD_SITE:
+				$this->afficherAddSite();
+				break;
+
 		}
 	}
 
@@ -105,6 +110,35 @@ class VueUser
 		</form>";
 
 	}	
+
+	private function afficherAddSite()
+	{
+		$this->afficherHeader();
+
+		echo "<div class=\"register_container\">
+
+		<form method=\"post\" action=\"\">
+
+			<label for=\"name\">Nom :</label>
+
+			<input type=\"text\" id=\"name\" name=\"name\">
+
+			<label for=\"server_name\">Nom du serveur :</label>
+
+			<input type=\"text\" id=\"server_name\" name=\"server_name\">
+
+			<label for=\"url_dev\">URL dev :</label>
+
+			<input type=\"text\" id=\"url_dev\" name=\"url_dev\">
+
+			<label for=\"url_prod\">URL Prod :</label>
+
+			<input type=\"text\" id=\"url_prod\" name=\"url_prod\">
+
+			<input type=\"submit\">
+
+		</form>";
+	}
 
 	private function afficherHeader()
 	{

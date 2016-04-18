@@ -20,7 +20,7 @@ class Search
 
 		foreach ($variable as $key => $value) {
 		
-		echo "<div class=\"all-results\">";
+		
 				
 		
 		    	echo "<div class=\"result-container\">";
@@ -31,7 +31,7 @@ class Search
 
 			  echo "</div>";
 		
-		echo "</div>";
+
 
 
 		}
@@ -41,7 +41,7 @@ class Search
 	{
 		$sites = Sites::all();
 
-		echo "<div class=\"all-results\">";
+		
 				
 		
 		    	echo "<div class=\"result-container\">";
@@ -53,7 +53,7 @@ class Search
 			  echo "</div>";
 			
 		
-		echo "</div>";
+	
 
 	}
 	}

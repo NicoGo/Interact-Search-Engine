@@ -11,6 +11,36 @@ img{border: none;outline: 0;}
 
 /** HEADER **/
 
+.header
+{
+	width: 100%;
+	height: 50px;
+	background-color: #F2F2F2;
+}
+
+.header ul
+{
+	padding: 0;
+	margin: 0;
+	border-bottom: 1px solid #F1F1F1;
+	float: right;
+}
+
+.header ul li
+{
+	display: inline-block;
+	line-height: 50px;
+	padding: 0 10px;
+}
+
+.header ul li i
+{
+	font-size: 20px;
+	vertical-align: middle;
+}
+
+/** SLIDER **/
+
 .slider
 {
 	position: relative;
@@ -35,6 +65,7 @@ img{border: none;outline: 0;}
 .slider-menu ul li
 {
 	margin-right: 30px;
+	color: white;
 	padding: 7px 0px;
 	line-height: 50px;
 	display: inline-block;
@@ -56,11 +87,18 @@ img{border: none;outline: 0;}
 
 .slider-text
 {
-	padding: 40px;
-	padding-right: 40%;
+	display: inline-block;
+	width: auto;
+	padding: 0px 20px;
 	color: white;
-	margin-left: 10%;
+	margin-left: 30px;
 	font-size: 11px;
+	vertical-align: top;
+}
+
+.slider-text a
+{
+	color: white;
 }
 
 .slider-button

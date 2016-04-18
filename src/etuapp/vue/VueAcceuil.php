@@ -67,10 +67,13 @@ class VueAcceuil
 
 		$url_login =  $_SERVER["SCRIPT_NAME"]."/login";
 		$url_register =  $_SERVER["SCRIPT_NAME"]."/register";
+		$url_creation =  $_SERVER["SCRIPT_NAME"]."/addsite";
 
 		// RECUPERATION DES DONNNES
 
-		$sites = Sites::all();
+		$sites = Sites::join('map_user_sites', 'sites.id', '=', 'map_user_sites.id_site')->orderBy("views","DESC")->get(['map_user_sites.id AS mus_id', 'sites.*']);
+
+		$nbr_sites = Sites::All()->count();
 
 		if(isset($_SESSION["user"]))
 		{
@@ -79,23 +82,36 @@ class VueAcceuil
 		
 		// AFFICHAGE IMAGE HEADER / MENU 
 
+		echo "<div class=\"header\">
+
+			<ul> 
+
+				<li><i class=\"fa fa-server\" aria-hidden=\"true\"></i>&nbsp; $nbr_sites</li>
+				<li style=\"color: #2ecc71\"><i class=\"fa fa-circle\" aria-hidden=\"true\"></i>&nbsp; 10</li>
+				<li style=\"color: #e74c3c\"><i class=\"fa fa-circle\" aria-hidden=\"true\"></i>&nbsp; 10</li>
+				<li><a href=\"$url_creation\"><i class=\"fa fa-plus-circle\" aria-hidden=\"true\"></i></a></li>
+				<li><i class=\"fa fa-cogs\" aria-hidden=\"true\"></i></li>";
+				if(isset($_COOKIE["login"]))
+				{
+					echo "<li>".$_COOKIE["login"]."</li>";
+				}
+
+			echo "</ul>
+
+		</div>";
+
 		echo "
 
 		<div class=\"slider\" style=\"height: 350px; background-image: url('$this->image_dir/wall_1.jpg');\">
 
 				<div class=\"slider-menu\">";
 					
-						if(isset($_COOKIE["login"]))
-						{
-							echo "<ul><li>Bonjour, ".$_COOKIE["login"]."</li></ul>";
-						}
-						else
+						if(!isset($_COOKIE["login"]))
 						{
 							echo "<ul>
 						
 									<li><a href=\"$url_login\">Se connecter</a></li>
 									<li><a href=\"$url_register\">S'inscrire</a></li>
-
 							</ul>";
 						}
 
@@ -104,15 +120,29 @@ class VueAcceuil
 			
 				<div class=\"slider-text\">
 				
-					<h2>Nombre de projet : 120</h2>
+					<img src=\"$this->image_dir/logo.png\">
 
-					<p>Enable : 80 </br>
-					Disable : 20 
-					</p></br>
+					<p>Project Manager </p>
+					
 
-					<a href=\"#\" class=\"slider-button\">Lorem Ipsum</a>
+				</div>
+				
+				<div class=\"slider-text\" style=\"border-left: 1px solid white;\"><h2>Favoris</h2>";
 
-			</div>
+					if(isset($_SESSION["user"]))
+					{
+						foreach ($favoris as $key => $favori) {
+
+						  // RECUPERATION DU SITE
+
+						  $site = Sites::Where("id","=",$favori->id)->first();
+
+						  echo "<h3>".$site->name." - <a href=\"http://$site->url_dev\" target=\"_blank\">http://$site->url_dev</a> </h3>";
+
+						}
+					}
+
+				echo "</div>
 
 		</div>";
 
@@ -138,42 +168,42 @@ class VueAcceuil
 
 		echo "<div class=\"all-results\">";
 
-			echo "<h3> ---------- FAVORIS --------</h3>";
+			// echo "<h3 style=\"text-align: center;\"> ---------- FAVORIS ---------- </h3>";
 
-			if(isset($_SESSION["user"]))
-			{
-				foreach ($favoris as $key => $favori) {
+			// if(isset($_SESSION["user"]))
+			// {
+			//	foreach ($favoris as $key => $favori) {
 
 				  // RECUPERATION DU SITE
 
-				  $site = Sites::Where("id","=",$favori->id)->first();
+			//	  $site = Sites::Where("id","=",$favori->id)->first();
+			//
+			//	  echo "<div class=\"result-container\" id=\"result-container-$site->id\">";
+			//
+			//	  echo "<h3>".$site->name." - <a href=\"http://$site->url_dev\" target=\"_blank\">http://$site->url_dev</a> </h3></br>";
+			//
+			//	  echo "URL DEV : <a href=\"http://$site->url_prod\" target=\"_blank\">http://$site->url_prod</a></br>";
+			//
+			//	  echo "VIEWS : $site->views";
+			//
+			//	  echo "<div class=\"result-favorite\"><a href=\"../index.php/favorite/$site->id\" class=\"result-favorite-link\"><i class=\"fa fa-star\"></i></a></div></div>";
+			//
+			//  	  echo "</div>";
 
-				  echo "<div class=\"result-container\">";
+		//		}
+	//		}
 
-				  echo "<h3>".$site->name." - <a href=\"http://$site->url_dev\">http://$site->url_dev</a> </h3></br>";
-
-				  echo "URL DEV : <a href=\"http://$site->url_prod\">http://$site->url_prod</a></br>";
-
-				  echo "VIEWS : $site->views";
-
-				  echo "<div class=\"result-favorite\"><a href=\"index.php/favorite/$site->id\" class=\"result-favorite-link\"><i class=\"fa fa-star\"></i></a></div></div>";
-
-			  	  echo "</div>";
-
-				}
-			}
-
-			echo "<h3> ---------- SITES --------</h3>";
+			echo "<h3 style=\"text-align: center;\"> ---------- SITES ---------- </h3>";
 
 			foreach ($sites as $key => $site) {
 
-				  echo "<div class=\"result-container\">";
+				  echo "<div class=\"result-container\" id=\"result-container-$site->id\">";
 
-				  echo "<h3>".$site->name." - <a href=\"http://$site->url_dev\">http://$site->url_dev</a> </h3></br>";
+				  echo "<h3>".$site->name." - <a href=\"http://$site->url_dev\" target=\"_blank\">http://$site->url_dev</a> </h3></br>";
 
-				  echo "URL DEV : <a href=\"http://$site->url_prod\">http://$site->url_prod</a></br>";
+				  echo "URL DEV : <a href=\"http://$site->url_prod\" target=\"_blank\">http://$site->url_prod</a></br>";
 
-				  echo "VIEWS : $site->views";
+				  echo "VIEWS : $site->views_all";
 
 				  if(isset($_SESSION["user"]))
 				  {	
@@ -181,9 +211,7 @@ class VueAcceuil
 
 				  		$is_fav = MapUserSites::Where("id_user","=",$_SESSION["user"])->Where("id_site","=",$site->id)->Where("favorite","=","1")->count();
 
-
-
-				  		echo "<div class=\"result-favorite\"><a href=\"index.php/favorite/$site->id\" class=\"result-favorite-link\">";if($is_fav==1){echo "<i class=\"fa fa-star\"></i>";}else{echo "<i class=\"fa fa-star-o\"></i>";}echo"</a></div></div>";
+				  		echo "<div class=\"result-favorite\"><a href=\"index.php/favorite/$site->id\" class=\"result-favorite-link\">";if($is_fav==1){echo "<i class=\"fa fa-star\"></i>";}else{echo "<i class=\"fa fa-star-o\"></i>";}echo"</a></div>";
 
 				  }
 

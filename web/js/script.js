@@ -42,9 +42,9 @@ $( document ).ready(function() {
 			});
 		});
 
-		// --------------------------- SCRIPT AJAX FAVORIS -------------------------------- **/ 
+		// --------------------------- SCRIPT AJAX FAVORIS -------------------------------- 
 
-		$(".result-favorite-link").click(function(e)
+		$(document).on("click",".result-favorite-link",function(e)
 		{
 			e.preventDefault();
 			if($(this).children().attr("class")=="fa fa-star-o")
@@ -63,4 +63,17 @@ $( document ).ready(function() {
 				 });
 		});
 
+		// --------------------------- SCRIPT AJAX CLICS / VIEW -------------------------------- 
+
+		$('.result-container').on("click","a",function(e)
+		{
+			var id = $(this).closest(".result-container").attr("id");
+			var id_site = id.substring(id.length,id.length-1);
+			$.ajax({
+				   url: "index.php/inc/"+id_site,
+				   type: 'GET',
+				   success: function(data) {
+				   }
+				 });
+		});
 });
