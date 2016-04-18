@@ -71,7 +71,7 @@ class VueAcceuil
 
 		// RECUPERATION DES DONNNES
 
-		$sites = Sites::join('map_user_sites', 'sites.id', '=', 'map_user_sites.id_site')->orderBy("views","DESC")->get(['map_user_sites.id AS mus_id', 'sites.*']);
+		$sites = Sites::join('map_user_sites', 'sites.id', '=', 'map_user_sites.id_site')->orderBy("favorite","DESC")->orderBy("views","DESC")->get(['map_user_sites.id AS mus_id', 'sites.*']);
 
 		$nbr_sites = Sites::All()->count();
 
@@ -83,6 +83,8 @@ class VueAcceuil
 		// AFFICHAGE IMAGE HEADER / MENU 
 
 		echo "<div class=\"header\">
+
+		<img src=\"$this->image_dir/logo.png\" style=\"position: absolute; top: 5px; left: 25px; height:40px;\">
 
 			<ul> 
 
@@ -100,51 +102,7 @@ class VueAcceuil
 
 		</div>";
 
-		echo "
-
-		<div class=\"slider\" style=\"height: 350px; background-image: url('$this->image_dir/wall_1.jpg');\">
-
-				<div class=\"slider-menu\">";
-					
-						if(!isset($_COOKIE["login"]))
-						{
-							echo "<ul>
-						
-									<li><a href=\"$url_login\">Se connecter</a></li>
-									<li><a href=\"$url_register\">S'inscrire</a></li>
-							</ul>";
-						}
-
-						
-				echo "</div>
-			
-				<div class=\"slider-text\">
-				
-					<img src=\"$this->image_dir/logo.png\">
-
-					<p>Project Manager </p>
-					
-
-				</div>
-				
-				<div class=\"slider-text\" style=\"border-left: 1px solid white;\"><h2>Favoris</h2>";
-
-					if(isset($_SESSION["user"]))
-					{
-						foreach ($favoris as $key => $favori) {
-
-						  // RECUPERATION DU SITE
-
-						  $site = Sites::Where("id","=",$favori->id)->first();
-
-						  echo "<h3>".$site->name." - <a href=\"http://$site->url_dev\" target=\"_blank\">http://$site->url_dev</a> </h3>";
-
-						}
-					}
-
-				echo "</div>
-
-		</div>";
+		
 
 		// AFFICHAGE COLONNE GAUCHE (PROJET ENABLE)
 
@@ -193,17 +151,15 @@ class VueAcceuil
 		//		}
 	//		}
 
-			echo "<h3 style=\"text-align: center;\"> ---------- SITES ---------- </h3>";
-
 			foreach ($sites as $key => $site) {
 
 				  echo "<div class=\"result-container\" id=\"result-container-$site->id\">";
 
-				  echo "<h3>".$site->name." - <a href=\"http://$site->url_dev\" target=\"_blank\">http://$site->url_dev</a> </h3></br>";
+				  echo "<h3><div class=\"red-alert\">$site->views_all</div><div class=\"green-alert\">$site->server_name</div>$site->name</h3></br>";
 
 				  echo "URL DEV : <a href=\"http://$site->url_prod\" target=\"_blank\">http://$site->url_prod</a></br>";
 
-				  echo "VIEWS : $site->views_all";
+				  echo "URL PROD : <a href=\"http://$site->url_dev\" target=\"_blank\">http://$site->url_dev</a> </h3> ";
 
 				  if(isset($_SESSION["user"]))
 				  {	
@@ -212,7 +168,6 @@ class VueAcceuil
 				  		$is_fav = MapUserSites::Where("id_user","=",$_SESSION["user"])->Where("id_site","=",$site->id)->Where("favorite","=","1")->count();
 
 				  		echo "<div class=\"result-favorite\"><a href=\"index.php/favorite/$site->id\" class=\"result-favorite-link\">";if($is_fav==1){echo "<i class=\"fa fa-star\"></i>";}else{echo "<i class=\"fa fa-star-o\"></i>";}echo"</a></div>";
-
 				  }
 
 			  	  echo "</div>";
