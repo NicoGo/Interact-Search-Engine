@@ -61,6 +61,14 @@ $( document ).ready(function() {
 				   success: function(data) {
 				   }
 				 });
+				$.ajax({
+				   url: 'index.php/search/a',
+				   type: 'GET',
+				   success: function(data) {
+				      $(".all-results").empty();
+				      $(".all-results").append(data);
+				    }
+				});	
 		});
 
 		// --------------------------- SCRIPT AJAX CLICS / VIEW -------------------------------- 
