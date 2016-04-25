@@ -22,11 +22,12 @@ angular.module('engineApp',[])
     result.toFavorite = function(id)
     { 
       // requete AJAX post 
-      $http.get("index.php/favorite/"+id)
+      $http.get("routeur.php/favorite/"+id)
       .then(function(response){
             // trouver id 
-            var obj = $filter('filter')($scope.todos, function (d) {return d.id === id;});
+            var obj = $filter('filter')($scope.todos, function (d) {return d.id_site === id;});
             obj = obj[0];
+            
             if(obj.favorite==1)
               obj.favorite = 0;
             else
@@ -40,7 +41,7 @@ angular.module('engineApp',[])
       $scope.todos = [];
       $scope.count = 0;
       result.getServers();
-      $http.get("index.php/search/a")
+      $http.get("routeur.php/search/a")
       .then(function(response){
         angular.forEach(response.data, function(obj) {
           $scope.todos.push(obj);
@@ -52,7 +53,7 @@ angular.module('engineApp',[])
     result.getServers = function()
     {
       $scope.servers = [];
-      $http.get("index.php/servers")
+      $http.get("routeur.php/servers")
       .then(function(response){
         angular.forEach(response.data, function(obj) {
           console.log(obj);
@@ -64,7 +65,7 @@ angular.module('engineApp',[])
     result.clickLink = function(id)
     {
       console.log(id);
-      $http.get("index.php/inc/"+id)
+      $http.get("routeur.php/inc/"+id)
       .then(function(response) {
           var obj = $filter('filter')($scope.todos, function (d) {return d.id === id;});
           obj = obj[0];
@@ -83,7 +84,7 @@ angular.module('engineApp',[])
       if(typeof word === 'undefined')
       {
         $scope.todos = [];
-        $http.get("index.php/search/"+$scope.keywords)
+        $http.get("routeur.php/search/"+$scope.keywords)
         .then(function(response) {
             angular.forEach(response.data, function(obj) {
             $scope.todos.push(obj);
@@ -93,7 +94,7 @@ angular.module('engineApp',[])
       else
       {
         $scope.todos = [];
-        $http.get("index.php/search/"+word)
+        $http.get("routeur.php/search/"+word)
         .then(function(response) {
             angular.forEach(response.data, function(obj) {
             $scope.todos.push(obj);
@@ -106,7 +107,7 @@ angular.module('engineApp',[])
     {
       console.log($scope.fields);
       $http({
-        url: "index.php/addsite",
+        url: "routeur.php/addsite",
           method: "POST",
           data:$scope.fields
         }).success(function(data, status, headers, config) {
