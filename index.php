@@ -45,6 +45,7 @@ if(isset($_COOKIE["login"]) && isset($_COOKIE["pass"]))
     <script src="web/js/app.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="web/css/public.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
 
@@ -78,14 +79,14 @@ if(isset($_COOKIE["login"]) && isset($_COOKIE["pass"]))
         </div>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="">{{count}}</a></li>
-         <li style="padding-top: 7px;margin-right: 10px;"><button class="btn btn-success" type="button">
+        <button class="btn btn-primary navbar-btn" type="button">Sites : {{count}}</button>
+         <button class="btn btn-success navbar-btn" type="button">
             Enable <span class="badge">4</span>
-          </button></li>
-          <li style="padding-top: 7px;margin-right: 10px;"><button class="btn btn-danger" type="button">
+          </button>
+          <button class="btn btn-danger navbar-btn" type="button">
             Disable <span class="badge">3</span>
-          </button></li>
-          <li style="padding-top: 7px;"><button ng-click="todoList.refreshTab()" type="button" class="btn btn-default"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</button></li>
+          </button>
+          <button ng-click="todoList.refreshTab()" type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</button>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajout <span class="caret"></span></a>
           <ul class="dropdown-menu" style="padding: 10px;">
