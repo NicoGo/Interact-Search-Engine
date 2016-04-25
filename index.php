@@ -46,7 +46,8 @@ if(isset($_COOKIE["login"]) && isset($_COOKIE["pass"]))
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
+    
   </head>
 
   <body>
@@ -115,7 +116,7 @@ if(isset($_COOKIE["login"]) && isset($_COOKIE["pass"]))
   <button ng-click="todoList.refreshTab()" type="button" class="btn btn-default"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</button>
 
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="todo in todos">{{todo.id_site}}<b>{{todo.name}}</b> &nbsp; <span class="label label-info">{{todo.server_name}}</span><i ng-click="todoList.toFavorite(todo.id_site)" style="color: #d35400;" ng-class="todoList.renderStar(todo.favorite)" aria-hidden="true"></i><span class="badge">{{todo.views}}</span>
+    <li class="list-group-item" ng-repeat="todo in todos"><b>{{todo.name}}</b> &nbsp; <span class="label label-info">{{todo.server_name}}</span><i ng-click="todoList.toFavorite(todo.id_site)" style="color: #d35400;" ng-class="todoList.renderStar(todo.favorite)" aria-hidden="true"></i><span class="badge">{{todo.views}}</span>
       </br>Url prod : <a ng-click="todoList.clickLink(todo.id_site)" href="http://{{todo.url_prod}}" target="_blank">http://{{todo.url_prod}}</a>
       </br>Url dev : <a ng-click="todoList.clickLink(todo.id_site)" href="http://{{todo.url_dev}}" target="_blank">http://{{todo.url_dev}}</a>
     </li>

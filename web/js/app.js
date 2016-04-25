@@ -1,18 +1,13 @@
 angular.module('engineApp',[])
   .controller('ResultsController', ['$scope','$http','$filter', function($scope,$http,$filter) {
 
-
-    var result = this;
-
-
+   var result = this;
 
    $scope.todos = [];
    $scope.servers = [];
    $scope.count = 0;
-
-
  
-      // DETERMINE LA CLASSE
+    // DETERMINE LA CLASSE
     result.renderStar = function(fav) {
       if(fav==1)
         return "fa fa-star";
