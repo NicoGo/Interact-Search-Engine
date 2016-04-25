@@ -97,9 +97,16 @@ $app->get('/search/:keyword', function ($keyword) {
 	$c->search($keyword);
 });
 
-$app->get('/search', function () {
+$app->get('/search/', function () {
 	$c = new etuapp\control\AcceuilController();
 	$c->search("");
+});
+
+// --------------------- SECTION SERVEURS -------------------------- 
+
+$app->get('/servers', function () {
+	$c = new etuapp\control\AcceuilController();
+	$c->servers();
 });
 
 $app->run();

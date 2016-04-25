@@ -85,11 +85,20 @@ class SitesController
 
 	public function addSite()
 	{
+		$postdata = file_get_contents("php://input");
+		$request = json_decode($postdata);
+		var_dump($request->name);
 		if(isset($_SESSION["user"]))
 		{
 			if(isset($_POST))
 			{
-				$site = new Sites($_POST);
+				$site = new Sites();
+
+				$site->name = $request->name;
+				$site->server_name = $request->server_name;
+				$site->url_dev = $request->url_dev;
+				$site->url_prod = $request->url_prod;
+
 				$site->save();
 
 				$users = User::all();
