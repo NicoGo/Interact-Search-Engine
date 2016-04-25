@@ -1,5 +1,5 @@
 composer.phar
-/vendor/
+/vendor
 
 # Commit your application's lock file http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
@@ -61,3 +61,18 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+/node_modules
+/npm-debug.log
+
+/test/assets/package-*/
+/test/assets/temp-*/
+/test/reports
+/test/tmp/
+
+/bower.json
+/component.json
+/bower_components
+/test/sample
+!/test/sample/bower.json
+/npm-shrinkwrap.json
