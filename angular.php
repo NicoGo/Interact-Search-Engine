@@ -4,21 +4,6 @@ ob_start();
 
 session_start();
 
-use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Psr\Http\Message\ResponseInterface as Response;
-
-use etuapp\models\User;
-
-// AUTOLOAD ET DB
-
-require("vendor/autoload.php");
-use Illuminate\Database\Capsule\Manager as DB;
-$db = new DB();
-$conf = parse_ini_file("src/conf/config.ini");
-$db->addConnection($conf);
-$db->setAsGlobal();
-$db->bootEloquent();
-
 // --------------------- SCRIPT COOKIE -------------------------- 
 
 if(isset($_COOKIE["login"]) && isset($_COOKIE["pass"]))
@@ -37,15 +22,20 @@ if(isset($_COOKIE["login"]) && isset($_COOKIE["pass"]))
 
 <!doctype html>
 <html ng-app="engineApp" ng-controller="ResultsController as todoList">
+
   <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
+
+    <!-- A IMPORTER VIA NODE / BOWER -->
+    <script src="bower_components/angular/angular.js"></script>
     <script src="web/js/app.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
   </head>
+
   <body>
 
   <nav class="navbar navbar-default">
@@ -105,20 +95,19 @@ if(isset($_COOKIE["login"]) && isset($_COOKIE["pass"]))
           </ul>
         </li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+    </div>
+  </div>
+  </nav>
 
-<button ng-click="todoList.refreshTab()" type="button" class="btn btn-default"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</button>
+  <button ng-click="todoList.refreshTab()" type="button" class="btn btn-default"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</button>
 
-
-<ul class="list-group">
-  <li class="list-group-item" ng-repeat="todo in todos"><b>{{todo.name}}</b> &nbsp; <span class="label label-info">{{todo.server_name}}</span><i ng-click="todoList.toFavorite(todo.id_site)" style="color: #d35400;" ng-class="todoList.renderStar(todo.favorite)" aria-hidden="true"></i><span class="badge">{{todo.views}}</span>
-    </br>Url prod : <a ng-click="todoList.clickLink(todo.id_site)" href="http://{{todo.url_prod}}" target="_blank">http://{{todo.url_prod}}</a>
-    </br>Url dev : <a ng-click="todoList.clickLink(todo.id_site)" href="http://{{todo.url_dev}}" target="_blank">http://{{todo.url_dev}}</a>
-  </li>
-</ul>
-
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="todo in todos"><b>{{todo.name}}</b> &nbsp; <span class="label label-info">{{todo.server_name}}</span><i ng-click="todoList.toFavorite(todo.id_site)" style="color: #d35400;" ng-class="todoList.renderStar(todo.favorite)" aria-hidden="true"></i><span class="badge">{{todo.views}}</span>
+      </br>Url prod : <a ng-click="todoList.clickLink(todo.id_site)" href="http://{{todo.url_prod}}" target="_blank">http://{{todo.url_prod}}</a>
+      </br>Url dev : <a ng-click="todoList.clickLink(todo.id_site)" href="http://{{todo.url_dev}}" target="_blank">http://{{todo.url_dev}}</a>
+    </li>
+  </ul>
 
   </body>
+
 </html>

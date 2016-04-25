@@ -9,18 +9,6 @@ use etuapp\vue\VueUser;
 class UserController
 {
 
-	public function pageLogin()
-	{
-		$vue = new VueUser();
-		$vue->render(1);
-	}
-
-	public function pageRegister()
-	{
-		$vue = new VueUser();
-		$vue->render(2);
-	}
-
 	public function registerUser()
 	{
 		$erreur = false;

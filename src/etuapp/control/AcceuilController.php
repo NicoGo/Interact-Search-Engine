@@ -9,12 +9,6 @@ use etuapp\vue\VueAcceuil;
 class AcceuilController
 {
 
-	public function pageAcceuil()
-	{
-		$vue = new VueAcceuil();
-		$vue->render(1);
-	}
-
 	public function search($keyword)
 	{
 

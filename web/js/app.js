@@ -1,4 +1,4 @@
-angular.module('engineApp', ['ngAnimate'])
+angular.module('engineApp',[])
   .controller('ResultsController', ['$scope','$http','$filter', function($scope,$http,$filter) {
 
 

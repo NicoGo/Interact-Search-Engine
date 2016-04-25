@@ -11,46 +11,8 @@ class VueAcceuil
 
 	const AFFICHERACCEUIL = 1;
 
-	private $image_dir;
-
 	function __construct($page=null)
-	{
-
-		$urlindex = $_SERVER["SCRIPT_NAME"]."/";
-
-		$css = $_SERVER["SCRIPT_NAME"]."/../web/css/public.css";
-
-		$fontawesome = $_SERVER["SCRIPT_NAME"]."/../web/css/font-awesome.min.css";
-
-		$this->image_dir = $_SERVER["SCRIPT_NAME"]."/../web/images";
-
-		// JS
-
-		$urljquery = $_SERVER["SCRIPT_NAME"]."/../web/js/jquery.js";
-		$urlapp = $_SERVER["SCRIPT_NAME"]."/../web/js/script.js";
-
-		// URL DU MENU
-
-		$urlacceuil = $_SERVER["SCRIPT_NAME"]."/../index.php";
-		$urlregister = $_SERVER["SCRIPT_NAME"]."/user/register/";
-
-
-		echo "<title>Interact Project Manager</title> 
-
-			<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css\">
-
-
-				<link rel=\"stylesheet\" type=\"text/css\" href=\"$css\" media=\"screen\" />
-				<link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
-				
-				<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />
-
-				<script type=\"text/javascript\" src=\"$urljquery\"></script>
-				<script type=\"text/javascript\" src=\"$urlapp\"></script>
-
-				<script src=\"$urljquery\"></script>";
-				 
-		}
+	{}
 
 	function render($type)
 	{

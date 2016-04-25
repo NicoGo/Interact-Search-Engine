@@ -77,12 +77,6 @@ class SitesController
 		}
 	}
 
-	public function pageAddSite()
-	{
-		$vue = new VueUser();
-		$vue->render(3);
-	}
-
 	public function addSite()
 	{
 		$postdata = file_get_contents("php://input");
