@@ -62,7 +62,7 @@ angular.module('engineApp',[])
       console.log(id);
       $http.get("routeur.php/inc/"+id)
       .then(function(response) {
-          var obj = $filter('filter')($scope.todos, function (d) {return d.id === id;});
+          var obj = $filter('filter')($scope.todos, function (d) {return d.id_site === id;});
           obj = obj[0];
           obj.views++;
           obj.view_all++;
@@ -113,6 +113,4 @@ angular.module('engineApp',[])
         result.refreshTab();
     }
 
-
-
-  }]);
+}]);

@@ -47,7 +47,7 @@ if(isset($_COOKIE["login"]) && isset($_COOKIE["pass"]))
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
-    
+
   </head>
 
   <body>
@@ -79,8 +79,13 @@ if(isset($_COOKIE["login"]) && isset($_COOKIE["pass"]))
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="">{{count}}</a></li>
-         <li><a href="">enable</a></li>
-          <li><a href="">disable</a></li>
+         <li style="padding-top: 7px;margin-right: 10px;"><button class="btn btn-success" type="button">
+            Enable <span class="badge">4</span>
+          </button></li>
+          <li style="padding-top: 7px;margin-right: 10px;"><button class="btn btn-danger" type="button">
+            Disable <span class="badge">3</span>
+          </button></li>
+          <li style="padding-top: 7px;"><button ng-click="todoList.refreshTab()" type="button" class="btn btn-default"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</button></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajout <span class="caret"></span></a>
           <ul class="dropdown-menu" style="padding: 10px;">
@@ -113,14 +118,45 @@ if(isset($_COOKIE["login"]) && isset($_COOKIE["pass"]))
   </div>
   </nav>
 
-  <button ng-click="todoList.refreshTab()" type="button" class="btn btn-default"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</button>
+<div class="container-fluid">
+  <div class="row">
 
-  <ul class="list-group">
-    <li class="list-group-item" ng-repeat="todo in todos"><b>{{todo.name}}</b> &nbsp; <span class="label label-info">{{todo.server_name}}</span><i ng-click="todoList.toFavorite(todo.id_site)" style="color: #d35400;" ng-class="todoList.renderStar(todo.favorite)" aria-hidden="true"></i><span class="badge">{{todo.views}}</span>
-      </br>Url prod : <a ng-click="todoList.clickLink(todo.id_site)" href="http://{{todo.url_prod}}" target="_blank">http://{{todo.url_prod}}</a>
-      </br>Url dev : <a ng-click="todoList.clickLink(todo.id_site)" href="http://{{todo.url_dev}}" target="_blank">http://{{todo.url_dev}}</a>
-    </li>
-  </ul>
+    <div class="col-md-6">
+
+      <div class="panel panel-success">
+
+        <div class="panel-heading">Sites Enable</div>
+
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="todo in todos"><b>{{todo.name}}</b> &nbsp; <span class="label label-info">{{todo.server_name}}</span><i ng-click="todoList.toFavorite(todo.id_site)" style="color: #d35400;" ng-class="todoList.renderStar(todo.favorite)" aria-hidden="true"></i><span class="badge">{{todo.views}}</span>
+            </br>Url prod : <a ng-click="todoList.clickLink(todo.id_site)" href="http://{{todo.url_prod}}" target="_blank">http://{{todo.url_prod}}</a>
+            </br>Url dev : <a ng-click="todoList.clickLink(todo.id_site)" href="http://{{todo.url_dev}}" target="_blank">http://{{todo.url_dev}}</a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+      <div class="panel panel-danger">
+
+        <div class="panel-heading">Sites Disable</div>
+
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="todo in todos"><b>{{todo.name}}</b> &nbsp; <span class="label label-info">{{todo.server_name}}</span><i ng-click="todoList.toFavorite(todo.id_site)" style="color: #d35400;" ng-class="todoList.renderStar(todo.favorite)" aria-hidden="true"></i><span class="badge">{{todo.views}}</span>
+            </br>Url prod : <a ng-click="todoList.clickLink(todo.id_site)" href="http://{{todo.url_prod}}" target="_blank">http://{{todo.url_prod}}</a>
+            </br>Url dev : <a ng-click="todoList.clickLink(todo.id_site)" href="http://{{todo.url_dev}}" target="_blank">http://{{todo.url_dev}}</a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
 
   </body>
 
