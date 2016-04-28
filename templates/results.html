@@ -1,0 +1,39 @@
+ <div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-8">
+
+      <div class="panel panel-success">
+
+        <div class="panel-heading">Sites Enable</div>
+
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="result in results"><b>{{result.name}}</b> &nbsp; <span class="label label-info">{{result.server_name}}</span><i ng-click="Results.toFavorite(result.id_site)" style="color: #d35400;" ng-class="Results.renderStar(result.favorite)" aria-hidden="true"></i><span class="badge">{{result.views}}</span>
+            </br>Url prod : <a ng-click="Results.clickLink(result.id_site)" href="http://{{result.url_prod}}" target="_blank">http://{{result.url_prod}}</a>
+            </br>Url dev : <a ng-click="Results.clickLink(result.id_site)" href="http://{{result.url_dev}}" target="_blank">http://{{result.url_dev}}</a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="panel panel-danger">
+
+        <div class="panel-heading">Sites Disable</div>
+
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="result in results"><b>{{result.name}}</b> &nbsp; <span class="label label-info">{{result.server_name}}</span><i ng-click="Results.toFavorite(result.id_site)" style="color: #d35400;" ng-class="Results.renderStar(result.favorite)" aria-hidden="true"></i><span class="badge">{{result.views}}</span>
+            </br>Url prod : <a ng-click="Results.clickLink(result.id_site)" href="http://{{result.url_prod}}" target="_blank">http://{{result.url_prod}}</a>
+            </br>Url dev : <a ng-click="Results.clickLink(result.id_site)" href="http://{{result.url_dev}}" target="_blank">http://{{result.url_dev}}</a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

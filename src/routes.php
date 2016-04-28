@@ -1,35 +1,14 @@
 <?php
+// Routes
 
-session_start();
+$app->get('/[{name}]', function ($request, $response, $args) {
+    // Sample log message
+    $this->logger->info("Slim-Skeleton '/' route");
 
-use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Psr\Http\Message\ResponseInterface as Response;
+    // Render index view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
 
-use etuapp\models\User;
-
-// AUTOLOAD ET DB
-
-require("vendor/autoload.php");
-use Illuminate\Database\Capsule\Manager as DB;
-$db = new DB();
-$conf = parse_ini_file("src/conf/config.ini");
-$db->addConnection($conf);
-$db->setAsGlobal();
-$db->bootEloquent();
-
-$app = new \Slim\Slim();
-
-// --------------------- SCRIPT COOKIE -------------------------- 
-
-if(isset($_COOKIE["login"]) && isset($_COOKIE["pass"]))
-{
-	$count = User::Where("login","=",$_COOKIE["login"])->Where("pass","=",$_COOKIE["pass"])->count();
-
-	if($count==1)
-	{
-		$_SESSION["user"] = User::Where("login","=",$_COOKIE["login"])->Where("pass","=",$_COOKIE["pass"])->first()->id;
-	}
-}
 
 // --------------------- SECTION ACCEUIL -------------------------- 
 

@@ -9,83 +9,125 @@ use etuapp\vue\VueUser;
 
 class SitesController
 {
-
+	/**
+	* Mets/Enleve un site des favoris
+	* @param   $id id du site 
+	*/
 	public function toFavorite($id)
 	{
-		if(isset($_SESSION["user"]))
-		{
+		if(isset($_SESSION["user"])) {
 			// SI LA LIAISON EXISTE DEJA
 
-			$count = MapUserSites::Where("id_site","=",$id)->Where("id_user","=",$_SESSION["user"])->count();
-			if($count==1)
-			{
+			$mus = new MapUserSites();
+			$exist = $mus->linkExist($id);
+			if($exist==1) {
 
-				$mus = MapUserSites::Where("id_site","=",$id)->Where("id_user","=",$_SESSION["user"])->first();
+				$mus = new MapUserSites();
+				$mus = $mus->firstLink($id);
 				// UPDATE 
-				if($mus->favorite==1)
-				{
+				if($mus->favorite==1) {
 					$mus->favorite = 0;
 				}
-				else
-				{
+				else {
 					$mus->favorite = 1;
 				}
 				// SAVE
 				$mus->save();
+
 			}
-			else
-			{
+			else {
+
 				$mus = new MapUserSites();
 				// SET DES DONNEES
 				$mus->id_user = $_SESSION["user"];
 				$mus->id_site = $id;
+				$mus->views = 0;
 				$mus->favorite = 1;
 				//SAVE 
 				$mus->save();
+
 			}
 		}
 	}
 
+	/**
+	* Increment les champs views/views_all 
+	* @param  $id id du site 
+	*/
 	public function toInc($id)
 	{
-		if(isset($_SESSION["user"]))
-		{
+		if(isset($_SESSION["user"])) {
 			// SI LA LIAISON EXISTE DEJA
 
-			$count = MapUserSites::Where("id_site","=",$id)->Where("id_user","=",$_SESSION["user"])->count();
-			if($count==1)
-			{
-				$mus = MapUserSites::Where("id_site","=",$id)->Where("id_user","=",$_SESSION["user"])->first();
-				$site = Sites::find($id);
-				$site->increment("views_all");
-				// UPDATE 
-				$mus->increment('views');
+			$mus = new MapUserSites();
+			$exist = $mus->linkExist($id);
+			if($exist==1) {
+
+				$mus = new MapUserSites();
+				$mus = $mus->firstLink($id);
+
+				$site = new Sites();
+				$site = $site->find($id);
+
+				$mus->views++;
+				$site->views_all++;
 
 				// SAVE
 				$mus->save();
+				$site->save();
+
 			}
 			else
 			{
+
 				$mus = new MapUserSites();
 				// SET DES DONNEES
 				$mus->id_user = $_SESSION["user"];
 				$mus->id_site = $id;
 				$mus->views = 1;
+				$mus->favorite = 0;
 				//SAVE 
 				$mus->save();
+
 			}
 		}
 	}
 
+	/**
+	* Fait une recherche sur les sites dans la base de données. Affiche les données en JSON.
+	* @param   $keyword mots clés
+	*/
+	public function search($keyword)
+	{
+		if(strlen($keyword)>1) {
+			$sites = new Sites();		
+			echo json_encode($sites->search($keyword));
+		}
+		else {
+			$sites = new Sites();
+			echo json_encode($sites->findJoinAll());
+		}
+	}
+
+	/**
+	* Affiche les serveurs répertoriés en BDD en JSON.
+	*/
+	public function servers()
+	{
+		$sites = new Sites();
+
+		echo json_encode($sites->findAllServers());
+	}
+
+	/**
+	* Ajoute un site dans la base de données
+	*/
 	public function addSite()
 	{
 		$postdata = file_get_contents("php://input");
 		$request = json_decode($postdata);
-		var_dump($request->name);
-		if(isset($_SESSION["user"]))
-		{
-			if(isset($_POST))
-			{
+		if(isset($_SESSION["user"])) {
+			if(isset($_POST)) {
 				$site = new Sites();
 
 				$site->name = $request->name;
@@ -95,7 +137,8 @@ class SitesController
 
 				$site->save();
 
-				$users = User::all();
+				$users = new User();
+				$user = $user->findAll();
 				foreach ($users as $key => $user) {
 					$mus = new MapUserSites();
 					$mus->id_user = $user->id;

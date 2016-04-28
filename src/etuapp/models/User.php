@@ -1,12 +1,18 @@
-<?php
+<?php 
 
 namespace etuapp\models;
 
-class User extends \Illuminate\Database\Eloquent\Model
+class User extends Model
 {
 
-	protected $table = 'user';
-	protected $primaryKey = 'id';
-  	protected $fillable = array('id','login', 'pass');
-	public $timestamps = false;
+	/**
+	* Initialise le modèle
+	*/
+	public function __construct()
+	{
+		$this->table = "sites";
+		$this->fields = array('id','login', 'pass');
+		parent::__construct();
+	}
+
 }

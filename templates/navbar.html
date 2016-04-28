@@ -1,0 +1,64 @@
+<nav class="navbar navbar-default" ng-app="engineApp">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Interact Search Engine</a></br></br>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" ng-keydown="Results.search(keywords)" placeholder="Search" ng-model="keywords">
+          </div>
+          <div class="form-group">
+            <select class="form-control" ng-change="Results.selectServer(selectedOption)" ng-model="selectedOption">
+              <option ng-repeat="server in servers" value="{{server.server_name}}">{{server.server_name}}</option>
+            </select>
+          </div>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+          <button class="btn btn-primary navbar-btn" ng-click="Results.showAll()" type="button">Sites : <span class="badge">{{count}}</span></button>
+           <button class="btn btn-success navbar-btn" type="button" ng-click="Results.showEnable()">
+              Enable <span class="badge">4</span>
+            </button>
+            <button class="btn btn-danger navbar-btn" type="button" ng-click="Results.showDisable()">
+              Disable <span class="badge">3</span>
+            </button>
+            <button ng-click="Results.refreshTab()" type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</button>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajout <span class="caret"></span></a>
+            <ul class="dropdown-menu" style="padding: 10px;">
+              <li>
+               <form method="post" ng-submit="Results.postSite()">
+                  <label for="name">Nom :</label>
+
+                  <input type="text" id="name" name="name" ng-model="fields.name">
+
+                  <label for="server_name">Nom du serveur :</label>
+
+                  <input type="text" id="server_name" name="server_name" ng-model="fields.server_name">
+
+                  <label for="url_dev">URL dev :</label>
+
+                  <input type="text" id="url_dev" name="url_dev" ng-model="fields.url_dev">
+
+                  <label for="url_prod">URL Prod :</label>
+
+                  <input type="text" id="url_prod" name="url_prod" ng-model="fields.url_prod"></br></br>
+
+                  <input type="submit">
+              </form>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
