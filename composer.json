@@ -1,8 +1,7 @@
 {
-  "name": "limaga/core",
+  "name": "interact/core",
   "type" : "project",
   "require": {
-    "illuminate/database": "5.0.*",
     "php": ">=5.4.0",
     "slim/slim": "2.*" 
   },
