@@ -8,6 +8,11 @@ use etuapp\vue\VueUser;
 
 class UserController
 {
+	public function pageLogin()
+	{
+		$vue = new VueUser();
+		$vue->render(1);
+	}
 
 	public function registerUser()
 	{
@@ -68,9 +73,10 @@ class UserController
 
 			$pass = crypt($_POST["pass"],CRYPT_BLOWFISH);
 
-			$count = User::Where("login","=",$_POST["login"])->Where("pass","=",$pass)->count();
+			$user = new User();
+			$isValid = $user->userExist($_POST["login"],$pass);
 
-			if($count==1)
+			if($isValid)
 			{
 				// LOGIN ET CREATION DU COOKIE 
 				setcookie("login",$_POST["login"],time() + (10 * 365 * 24 * 60 * 60));

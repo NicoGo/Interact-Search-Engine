@@ -36,7 +36,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajout <span class="caret"></span></a>
             <ul class="dropdown-menu" style="padding: 10px;">
               <li>
-               <form method="post" ng-submit="Results.postSite()">
+               <form method="post" ng-submit="Results.postSite(fields)">
                   <label for="name">Nom :</label>
 
                   <input type="text" id="name" name="name" ng-model="fields.name">

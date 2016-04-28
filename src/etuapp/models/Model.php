@@ -127,7 +127,7 @@ class Model
 
 		$result = $this->query($statement,$attributes,true);
 
-		$this->id = $this->lastInsertId();
+		$this->id = $this->db->lastInsertId();
 
 		return $result;
 	}

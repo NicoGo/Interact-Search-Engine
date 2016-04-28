@@ -103,18 +103,23 @@ myApp.controller('ResultsController', ['$scope','$http','$filter', function($sco
       }
     }
 
-    result.postSite = function()
+    result.postSite = function(fields)
     {
-      console.log($scope.fields);
+
       $http({
-        url: "routeur.php/addsite",
-          method: "POST",
-          data:$scope.fields
-        }).success(function(data, status, headers, config) {
-          console.log(data);
-        }).error(function(data, status, headers, config) {
-          $scope.status = status;
-      });
+
+                    url: "../routeur.php/addsite",
+                    data: fields,
+                    method: 'POST',
+                    headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
+
+                }).success(function(data){
+
+                    console.log("OK", data)
+
+                }).error(function(err){"ERR", console.log(err)})
+
+     
         result.refreshTab();
     }
 

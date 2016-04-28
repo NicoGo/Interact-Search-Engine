@@ -134,15 +134,20 @@ class SitesController
 				$site->server_name = $request->server_name;
 				$site->url_dev = $request->url_dev;
 				$site->url_prod = $request->url_prod;
+				$site->views_all = 0;
 
 				$site->save();
 
+				echo "SAVE";
+
 				$users = new User();
-				$user = $user->findAll();
+				$users = $users->findAll();
 				foreach ($users as $key => $user) {
 					$mus = new MapUserSites();
 					$mus->id_user = $user->id;
 					$mus->id_site = $site->id;
+					$mus->views = 0;
+					$mus->favorite = 0;
 					$mus->save();
 				}
 			}

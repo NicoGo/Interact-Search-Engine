@@ -2,43 +2,30 @@
 
 session_start();
 
-use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Psr\Http\Message\ResponseInterface as Response;
-
 use etuapp\models\User;
 
 // AUTOLOAD ET DB
 
 require("vendor/autoload.php");
-use Illuminate\Database\Capsule\Manager as DB;
-$db = new DB();
-$conf = parse_ini_file("src/conf/config.ini");
-$db->addConnection($conf);
-$db->setAsGlobal();
-$db->bootEloquent();
 
 $app = new \Slim\Slim();
 
 // --------------------- SCRIPT COOKIE -------------------------- 
 
-if(isset($_COOKIE["login"]) && isset($_COOKIE["pass"]))
-{
-	$count = User::Where("login","=",$_COOKIE["login"])->Where("pass","=",$_COOKIE["pass"])->count();
+//if(isset($_COOKIE["login"]) && isset($_COOKIE["pass"]))
+//{
+//	$count = User::Where("login","=",$_COOKIE["login"])->Where("pass","=",$_COOKIE["pass"])->count();
 
-	if($count==1)
-	{
-		$_SESSION["user"] = User::Where("login","=",$_COOKIE["login"])->Where("pass","=",$_COOKIE["pass"])->first()->id;
-	}
-}
+//	if($count==1)
+//	{
+//		$_SESSION["user"] = User::Where("login","=",$_COOKIE["login"])->Where("pass","=",$_COOKIE["pass"])->first()->id;
+//	}
+//}
+
+$_SESSION["user"] = 3;
 
 // --------------------- SECTION ACCEUIL -------------------------- 
 
-$app->get('/', function () {
- 	
-	$c = new etuapp\control\AcceuilController();
-	$c->pageAcceuil();
-
-});
 
 // --------------------- SECTION USER -------------------------- 
 
