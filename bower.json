@@ -1,0 +1,24 @@
+{
+  "name": "projet_dut",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Nicolas Brandstett <nbrandstett@interact.lu>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/NicoGo/Interact-Search-Engine",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "^1.5.5",
+    "bootstrap": "^3.3.6",
+    "components-font-awesome": "^4.5.0",
+    "angular": "^1.5.5",
+    "jquery": "^2.2.3"
+  }
+}
